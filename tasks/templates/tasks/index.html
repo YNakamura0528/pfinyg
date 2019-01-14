@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>タスク一覧</h2>
+
+<form action={% url "tasks:new" %} method="POST">
+  {% csrf_token %}
+  {{ newForm.as_p }}
+  <button type="submit">登録</button>
+</form>
+
+{% for f in forms %}
+<form action={% url "tasks:new" %} method="POST">
+  {% csrf_token %}
+  {{ f.form.taskName }}
+  {{ f.form.dueDate }}
+  <button type="submit">編集</button>
+</form>
+{% endfor %}
+
+
+<br>
+debug<br><br>
+
+{% for task in tasks %}
+  {{ task.taskName }}
+  {{ task.dueDate }}
+  {{ task.id }}
+  <br>
+{% endfor %}
+
+{% endblock %}
